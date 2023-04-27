@@ -2,10 +2,9 @@ import React from 'react';
 
 function PopupWithForm (props) {
 
-  const fields = (list) =>  {
+  const fields = (list) => {
     return list
   }
-
   const openModal = (status) => {
     return status ? 'popup_opened' : ''
   }
@@ -17,7 +16,7 @@ function PopupWithForm (props) {
           <h3 className="popup__title">{props.title}</h3>
           <form className="popup__form" name={`${props.name}`} noValidate>
             {fields(props.children)}
-            <button type="submit" className="popup__button">Сохранить</button>
+            <button type="submit" className="popup__button">{props.textButton}</button>
           </form>
         </div>
       </div>

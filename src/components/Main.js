@@ -17,6 +17,7 @@ function Main (props) {
         setUserName(data.name);
         setUserDescription(data.about)
       })
+      .catch((err) => console.log(`${err}`))
   }, [])
 
   React.useEffect(() => {
@@ -24,6 +25,7 @@ function Main (props) {
       .then((data) => {
         setCards(data)
       })
+      .catch((err) => console.log(`${err}`))
   }, [])
 
   return (

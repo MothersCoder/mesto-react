@@ -14,7 +14,7 @@ function App() {
 
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
 
-  const [selectedCard, setSelectedCard] = React.useState('')
+  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''})
 
   function handleEditProfileClick () {
     setEditProfilePopupOpen(true)
@@ -36,7 +36,7 @@ function App() {
   }
 
   function handleCardClick (cardData) {
-    setSelectedCard(cardData);
+    setSelectedCard({name: cardData.name, link: cardData.link});
     setImagePopupOpen(true);
   }
 
@@ -71,6 +71,7 @@ function App() {
           }
           isOpen = {isEditProfilePopupOpen}
           onClose = {closeAllPopups}
+          textButton = "Сохранить"
         />
 
         <PopupWithForm
@@ -90,6 +91,7 @@ function App() {
           }
           isOpen = {isAddPlacePopupOpen}
           onClose = {closeAllPopups}
+          textButton = "Создать"
         />
 
         <PopupWithForm
@@ -99,6 +101,7 @@ function App() {
             <>
             </>
           }
+          textButton = "Да"
         />
 
         <PopupWithForm
@@ -114,6 +117,7 @@ function App() {
           }
           isOpen = {isEditAvatarPopupOpen}
           onClose = {closeAllPopups}
+          textButton = "Сохранить"
         />
 
         <ImagePopup
