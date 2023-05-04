@@ -58,7 +58,7 @@ export default class Api {
     .then(this._checkResponse)
   }
 
-  like(idCard){
+  _like(idCard){
     return fetch(`${this._baseUrl}cards/${idCard}/likes`, {
       method: 'PUT',
       headers: this._headers
@@ -66,13 +66,17 @@ export default class Api {
 
     .then(this._checkResponse)
   }
-  deletLike(idCard){
+  _deletLike(idCard){
     return fetch(`${this._baseUrl}cards/${idCard}/likes`, {
       method: 'DELETE',
       headers: this._headers
     })
 
     .then(this._checkResponse)
+  }
+
+  changeLikeCardStatus(idCard, isLiked) {
+    return isLiked ? this._like(idCard) : this._deletLike(idCard)
   }
 
   loadNewUserPhoto(data) {

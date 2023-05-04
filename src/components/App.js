@@ -5,6 +5,8 @@ import Main from '../components/Main'
 import Footer from '../components/Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
+import {CurrentUserContext, UserData} from '../contexts/CurrentUserContext';
+import { api } from '../utils/Api';
 
 function App() {
 
@@ -15,6 +17,10 @@ function App() {
   const [isImagePopupOpen, setImagePopupOpen] = React.useState(false);
 
   const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''})
+
+  const currentUser = UserData();
+
+  const [cards, setCards] = React.useState([]);
 
   function handleEditProfileClick () {
     setEditProfilePopupOpen(true)
@@ -40,8 +46,20 @@ function App() {
     setImagePopupOpen(true);
   }
 
+  function handleCardLike (cardData) {
+    const isLiked = cardData.likes.some(item => item._id === currentUser._id);
+
+    api.changeLikeCardStatus(cardData._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) => state.map((c) => c._id === cardData._id ? newCard : c));
+      })
+      .catch((err) => console.log(`${err}`))
+  }
+
+
   return (
     <>
+    <CurrentUserContext.Provider value={UserData()}>
     <div className="page">
       <div className="page__content">
         <Header />
@@ -51,6 +69,7 @@ function App() {
           onEditAvatar = {handleEditAvatarClick}
 
           onCardClick = {handleCardClick}
+          onCardLike = {handleCardLike}
         />
         <Footer />
 
@@ -128,6 +147,7 @@ function App() {
 
       </div>
     </div>
+    </CurrentUserContext.Provider>
     </>
   );
 }
