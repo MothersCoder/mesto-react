@@ -1,5 +1,4 @@
 import React from 'react';
-import ConfirmPopup from './ConfirmPopup';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Card (props) {
