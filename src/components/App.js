@@ -1,6 +1,6 @@
 import '../index.css';
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main'
 import Footer from '../components/Footer';
@@ -32,6 +32,8 @@ function App() {
   const [deleteCard, setDeleteCard] = useState([]);
 
   const [textButtonContent, setTextButtonContent] = useState ('');
+
+  const avatarRefInput = useRef();
 
   function renderLoading(isLoading, textIsLoading, textLoaded) {
     isLoading ? setTextButtonContent(textIsLoading) : setTextButtonContent(textLoaded);
@@ -135,6 +137,7 @@ function App() {
     .then((state) => {
       setCurrentUser(state);
       closeAllPopups();
+      avatarRefInput.current.value = '';
     })
     .finally(() => {
       renderLoading(false, 'Сохранение...', 'Сохранить');
@@ -143,7 +146,7 @@ function App() {
   }
 
   function handleAddPlaceSubmit (data) {
-    renderLoading(true, 'Создание...', 'Создать');
+    renderLoading(true, 'Создание карточки...', 'Создать');
     api.addNewPlace(data)
       .then ((state) => {
         setCards([state, ...cards]);
@@ -152,7 +155,7 @@ function App() {
         setLinkPlaceValue('');
       })
       .finally(() => {
-        renderLoading(false, 'Создание...', 'Создать');
+        renderLoading(false, 'Создание карточки...', 'Создать');
       })
       .catch((err) => console.log(`${err}`))
   }
@@ -183,7 +186,7 @@ function App() {
             <Footer />
 
             <EditProfilePopup isOpen = {isEditProfilePopupOpen} onClose = {closeAllPopups} onUpdateUser = {handleUpdateUser} textButton = {textButtonContent}/>
-            <EditProfileAvatar isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} onUpdateAvatar = {handleUpdateAvatar} textButton = {textButtonContent} />
+            <EditProfileAvatar isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} refInput = {avatarRefInput} onUpdateAvatar = {handleUpdateAvatar} textButton = {textButtonContent} />
 
             <AddPlacePopup isOpen = {isAddPlacePopupOpen} onClose = {closeAllPopups} onAddPlace = {handleAddPlaceSubmit} changeName = {changePlaceName} changeLink = {changePlaceLink} nameValue = {placeNameValue}  linkValue = {linkPlaceValue} textButton = {textButtonContent} />
 
