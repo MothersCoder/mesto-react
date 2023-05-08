@@ -2,27 +2,22 @@ import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup (props) {
-  const [placeNameValue, setPlaceNameValue] = React.useState('');
-  const [linkPlaceValue, setLinkPlaceValue] = React.useState('');
 
   function handleChangePlaceName (e) {
-    setPlaceNameValue(e.target.value)
+    props.changeName(e.target.value)
   }
 
   function handleChangeLinkPlace (e) {
-    setLinkPlaceValue(e.target.value)
+    props.changeLink(e.target.value)
   }
 
   function handleSubmit (e) {
     e.preventDefault();
 
     props.onAddPlace ({
-      name: placeNameValue,
-      link: linkPlaceValue
+      name: props.nameValue,
+      link: props.linkValue
     });
-
-    setPlaceNameValue('');
-    setLinkPlaceValue('');
   }
 
   return (
@@ -32,21 +27,17 @@ function AddPlacePopup (props) {
       isOpen = {props.isOpen}
       onClose = {props.onClose}
       onSubmit = {handleSubmit}
-      children = {
-        <>
-          <input id="palce-input" className="popup__input popup__input_type_placename" value = {placeNameValue} onChange = {handleChangePlaceName} type="text" name="place" placeholder="Название" minLength="2" maxLength="30" required />
+      textButton = {props.textButton}
+      >
+          <input id="palce-input" className="popup__input popup__input_type_placename" value = {props.nameValue} onChange = {handleChangePlaceName} type="text" name="place" placeholder="Название" minLength="2" maxLength="30" required />
           <div className="popup__error-zone">
             <span className="palce-input-error popup__error"></span>
           </div>
-          <input id="link-input" className="popup__input popup__input_type_picturelink" value = {linkPlaceValue}onChange = {handleChangeLinkPlace} type="url" name="link" placeholder="Ссылка на картинку" minLength="2" required />
+          <input id="link-input" className="popup__input popup__input_type_picturelink" value = {props.linkValue}onChange = {handleChangeLinkPlace} type="url" name="link" placeholder="Ссылка на картинку" minLength="2" required />
           <div className="popup__error-zone">
             <span className="link-input-error popup__error"></span>
           </div>
-        </>
-      }
-
-      textButton = "Создать"
-  />
+      </PopupWithForm>
   )
 }
 

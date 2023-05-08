@@ -1,9 +1,10 @@
 import React from 'react';
+import { useContext } from 'react';
 import Card from '../components/Card';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main (props) {
-  const currentUser = React.useContext(CurrentUserContext)
+  const currentUser = useContext(CurrentUserContext)
 
   return (
     <div className="main">
@@ -24,7 +25,7 @@ function Main (props) {
       <section className="places">
         <ul className="place">
             {props.cards.map((card) => (
-              <Card data={card} onClick = {props.onCardClick} onLikeClick = {props.onCardLike} onDeleteClick = {props.onCardDelete} onConfirm = {props.onConfirm} key={card._id} />
+              <Card data={card} onClick = {props.onCardClick} onLikeClick = {props.onCardLike} onConfirm = {props.onConfirm} key={card._id} />
             ))}
         </ul>
       </section>

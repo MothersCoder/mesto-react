@@ -2,9 +2,6 @@ import React from 'react';
 
 function PopupWithForm (props) {
 
-  const fields = (list) => {
-    return list
-  }
   const openModal = (status) => {
     return status ? 'popup_opened' : ''
   }
@@ -15,7 +12,7 @@ function PopupWithForm (props) {
           <button type="button" className="popup__close" onClick = {props.onClose}></button>
           <h3 className="popup__title">{props.title}</h3>
           <form className="popup__form" name={`${props.name}`} onSubmit = {props.onSubmit} noValidate>
-            {fields(props.children)}
+            {props.children}
             <button type="submit" className="popup__button">{props.textButton}</button>
           </form>
         </div>

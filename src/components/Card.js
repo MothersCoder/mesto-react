@@ -12,7 +12,8 @@ function Card (props) {
   }
 
   function handleDeleteClick () {
-    props.onDeleteClick(props.data);
+    props.onConfirm(props.data);
+/*     props.onDeleteClick(props.data); */
   }
 
   const currentUser = React.useContext(CurrentUserContext);
@@ -23,7 +24,6 @@ function Card (props) {
   );
 
   return (
-    <>
     <li className="place__item" key={props.data._id}>
       <div className="place__image" onClick={handleClick} style={{
         backgroundImage: `url(${props.data.link})`,
@@ -37,7 +37,6 @@ function Card (props) {
         </div>
       </div>
     </li>
-    </>
   )
 }
 

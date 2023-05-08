@@ -4,8 +4,7 @@ import PopupWithForm from "./PopupWithForm";
 function ConfirmPopup (props) {
   function handleSubmit (e) {
     e.preventDefault()
-    console.log("хоть пробросилось")
-    props.onDelete();
+    props.deletCard(props.cardData);
   }
 
   return (
@@ -15,11 +14,7 @@ function ConfirmPopup (props) {
       onSubmit = {handleSubmit}
       name = "confirm"
       title = "Вы уверены?"
-      children = {
-        <>
-        </>
-      }
-      textButton = "Да"
+      textButton = {props.textButton}
   />
   )
 }
