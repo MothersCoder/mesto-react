@@ -74,11 +74,14 @@ function App() {
 
   function handleEditAvatarClick () {
     setEditAvatarPopupOpen(true);
+    avatarRefInput.current.value = '';
     setDefaultProfileButtonContent();
   }
 
   function handleAddPlaceClick () {
     setAddPlacePopupOpen(true);
+    setPlaceNameValue('');
+    setLinkPlaceValue('');
     setTextButtonContent('Создать');
   }
 
@@ -137,7 +140,6 @@ function App() {
     .then((state) => {
       setCurrentUser(state);
       closeAllPopups();
-      avatarRefInput.current.value = '';
     })
     .finally(() => {
       renderLoading(false, 'Сохранение...', 'Сохранить');
@@ -151,8 +153,6 @@ function App() {
       .then ((state) => {
         setCards([state, ...cards]);
         closeAllPopups();
-        setPlaceNameValue('');
-        setLinkPlaceValue('');
       })
       .finally(() => {
         renderLoading(false, 'Создание карточки...', 'Создать');
