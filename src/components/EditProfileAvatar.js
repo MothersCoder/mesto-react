@@ -1,13 +1,19 @@
 import React from "react";
+import { useRef, useEffect } from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function EditProfileAvatar (props) {
+  const avatarRefInput = useRef();
+
+  useEffect (() => {
+    avatarRefInput.current.value = '';
+  }, [props.isOpen])
 
   function handleSubmit (e) {
     e.preventDefault();
 
     props.onUpdateAvatar({
-      avatar: props.refInput.current.value
+      avatar: avatarRefInput.current.value
     })
   }
 
@@ -21,7 +27,7 @@ function EditProfileAvatar (props) {
     textButton = {props.textButton}
     >
       <>
-        <input id="link-avatar-input" className="popup__input popup__input_type_avatarlink" ref = {props.refInput} type="url" name="link" placeholder="Ссылка на аватарку" minLength="2" required />
+        <input id="link-avatar-input" className="popup__input popup__input_type_avatarlink" ref = {avatarRefInput} type="url" name="link" placeholder="Ссылка на аватарку" minLength="2" required />
         <div className="popup__error-zone">
           <span className="link-avatar-input-error popup__error"></span>
         </div>

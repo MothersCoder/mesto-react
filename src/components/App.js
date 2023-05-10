@@ -1,6 +1,6 @@
 import '../index.css';
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect} from 'react';
 import Header from '../components/Header';
 import Main from '../components/Main'
 import Footer from '../components/Footer';
@@ -26,25 +26,12 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
-  const [placeNameValue, setPlaceNameValue] = useState('');
-  const [linkPlaceValue, setLinkPlaceValue] = useState('');
-
   const [deleteCard, setDeleteCard] = useState([]);
 
   const [textButtonContent, setTextButtonContent] = useState ('');
 
-  const avatarRefInput = useRef();
-
   function renderLoading(isLoading, textIsLoading, textLoaded) {
     isLoading ? setTextButtonContent(textIsLoading) : setTextButtonContent(textLoaded);
-  }
-
-  function changePlaceName (data) {
-    setPlaceNameValue(data)
-  }
-
-  function changePlaceLink (data) {
-    setLinkPlaceValue(data)
   }
 
   useEffect(() => {
@@ -74,14 +61,11 @@ function App() {
 
   function handleEditAvatarClick () {
     setEditAvatarPopupOpen(true);
-    avatarRefInput.current.value = '';
     setDefaultProfileButtonContent();
   }
 
   function handleAddPlaceClick () {
     setAddPlacePopupOpen(true);
-    setPlaceNameValue('');
-    setLinkPlaceValue('');
     setTextButtonContent('Создать');
   }
 
@@ -186,9 +170,9 @@ function App() {
             <Footer />
 
             <EditProfilePopup isOpen = {isEditProfilePopupOpen} onClose = {closeAllPopups} onUpdateUser = {handleUpdateUser} textButton = {textButtonContent}/>
-            <EditProfileAvatar isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} refInput = {avatarRefInput} onUpdateAvatar = {handleUpdateAvatar} textButton = {textButtonContent} />
+            <EditProfileAvatar isOpen = {isEditAvatarPopupOpen} onClose = {closeAllPopups} onUpdateAvatar = {handleUpdateAvatar} textButton = {textButtonContent} />
 
-            <AddPlacePopup isOpen = {isAddPlacePopupOpen} onClose = {closeAllPopups} onAddPlace = {handleAddPlaceSubmit} changeName = {changePlaceName} changeLink = {changePlaceLink} nameValue = {placeNameValue}  linkValue = {linkPlaceValue} textButton = {textButtonContent} />
+            <AddPlacePopup isOpen = {isAddPlacePopupOpen} onClose = {closeAllPopups} onAddPlace = {handleAddPlaceSubmit} textButton = {textButtonContent} />
 
             <ConfirmPopup isOpen = {isConfirmPopupOpen} onClose = {closeAllPopups} deletCard = {handleCardDelete} cardData = {deleteCard} textButton = {textButtonContent}/>
 
